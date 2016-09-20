@@ -6,6 +6,8 @@ module Pure
     module Commands
       class PureExtractorCommand < PureCommand
         
+        include Pure::Extractor::ConfigurePuree
+        
         valid_extracts = [:organisation, :people]
         
         parameter "EXTRACT", "what to extract from pure" do |s|
@@ -20,19 +22,7 @@ module Pure
         
         def execute
           
-          Puree.configure do |config|
-            
-            config.base_url = server
-            
-            if !username.empty? && !password.empty?
-              
-              config.username = username
-              config.password = password
-              config.basic_auth = true
-              
-            end
-            
-          end
+          configure_puree server, username, password
         
           case extract
             

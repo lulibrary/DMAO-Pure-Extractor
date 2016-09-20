@@ -6,21 +6,11 @@ module Pure
     module Commands
       class PureOrganisationExtractorCommand < PureCommand
         
+        include Pure::Extractor::ConfigurePuree
+        
         def execute
           
-          Puree.configure do |config|
-            
-            config.base_url = server
-            
-            if !username.empty? && !password.empty?
-              
-              config.username = username
-              config.password = password
-              config.basic_auth = true
-              
-            end
-            
-          end
+          configure_puree server, username, password
           
           Pure::Extractor::Organisation.extract output_folder
           
