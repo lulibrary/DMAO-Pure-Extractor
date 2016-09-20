@@ -30,6 +30,10 @@ module Pure
           
             Pure::Extractor::Organisation.extract output_folder
             
+          when :people
+            
+            Pure::Extractor::People.extract output_folder
+            
           end
           
         end
