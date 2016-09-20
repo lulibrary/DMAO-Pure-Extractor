@@ -10,7 +10,7 @@ module Pure
           
           config.base_url = server
           
-          if !username.empty? && !password.empty?
+          if !username.nil? && !password.nil? && !username.empty? && !password.empty?
             
             config.username = username
             config.password = password
