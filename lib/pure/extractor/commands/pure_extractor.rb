@@ -20,39 +20,31 @@ module Pure
           
         end
         
+        def pure_collections
+          {organisation: :organisation, people: :person, projects: :project, publications: :publication, datasets: :dataset}
+        end
+        
         def execute
           
           configure_puree server, username, password
         
           case extract
             
-          when :organisation
-          
-            Pure::Extractor::Organisation.extract output_folder
-            
-          when :people
-            
-            Pure::Extractor::People.extract output_folder
-            
-          when :projects
-            
-            Pure::Extractor::Projects.extract output_folder
-            
-          when :publications
-            
-            Pure::Extractor::Publications.extract output_folder
-            
-          when :datasets
-            
-            Pure::Extractor::Datasets.extract output_folder
-            
           when :all
             
-            Pure::Extractor::Organisation.extract output_folder
-            Pure::Extractor::People.extract output_folder
-            Pure::Extractor::Projects.extract output_folder
-            Pure::Extractor::Publications.extract output_folder
-            Pure::Extractor::Datasets.extract output_folder
+            valid_extracts.each do |extract|
+              
+              next unless extract != :all
+              
+              filename = output_file + "/" + extract.to_s + ".json"
+              
+              Pure::Extractor.extract pure_collections[extract], filename
+              
+            end
+            
+          else
+            
+            Pure::Extractor.extract pure_collections[extract], output_file
             
           end
           
