@@ -1,5 +1,6 @@
 require 'puree'
 require 'json'
+require 'ruby-progressbar'
 
 module Pure
   module Extractor
@@ -15,8 +16,10 @@ module Pure
         
         org_uuids.count
         
+        progress_bar = ProgressBar.create(format: "%a %e %b\u{15E7}%i %p%% %t", progress_mark: ' ', remainder_mark: "\u{FF65}", total: org_uuids.count)
+        
         offset = 0
-        limit = 20
+        limit = 10
         
         orgs = []
       
@@ -35,10 +38,18 @@ module Pure
           end
 
           orgs.concat(returned_orgs)
+          
+          if (progress_bar.progress + limit) < org_uuids.count
+            progress_bar.progress += limit 
+          else
+            progress_bar.progress = org_uuids.count
+          end
 
           offset += limit
 
         end
+        
+        puts "Writing Organisation to #{output_folder}/#{filename}"
         
         File.open(output_folder + "/" + filename, "w") do |f|
           f.write(orgs.to_json)
