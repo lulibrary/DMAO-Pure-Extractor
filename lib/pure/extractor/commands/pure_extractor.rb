@@ -8,7 +8,7 @@ module Pure
         
         include Pure::Extractor::ConfigurePuree
         
-        valid_extracts = [:organisation, :people, :projects, :publications]
+        valid_extracts = [:organisation, :people, :projects, :publications, :datasets]
         
         parameter "EXTRACT", "what to extract from pure" do |s|
           
@@ -41,6 +41,10 @@ module Pure
           when :publications
             
             Pure::Extractor::Publications.extract output_folder
+            
+          when :datasets
+            
+            Pure::Extractor::Datasets.extract output_folder
             
           end
           

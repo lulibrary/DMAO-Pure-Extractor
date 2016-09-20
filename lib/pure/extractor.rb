@@ -5,10 +5,12 @@ require "pure/extractor/commands/pure_organisation_extractor"
 require "pure/extractor/commands/pure_people_extractor"
 require "pure/extractor/commands/pure_projects_extractor"
 require "pure/extractor/commands/pure_publications_extractor"
+require "pure/extractor/commands/pure_datasets_extractor"
 require "pure/extractor/organisation"
 require "pure/extractor/people"
 require "pure/extractor/projects"
 require "pure/extractor/publications"
+require "pure/extractor/datasets"
 
 module Pure
   module Extractor
