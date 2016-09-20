@@ -10,7 +10,7 @@ module Pure
         
         valid_extracts = [:organisation, :people, :projects, :publications, :datasets, :all]
         
-        parameter "EXTRACT", "what to extract from pure" do |s|
+        parameter "EXTRACT", "what to extract from pure, valid options are #{valid_extracts.map{|v| v.to_s}}" do |s|
           
           s = s.to_sym
           
