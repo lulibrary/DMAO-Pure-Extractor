@@ -18,11 +18,11 @@ module Pure
         progress_bar = ProgressBar.create(format: "%a %e %b\u{15E7}%i %p%% %t", progress_mark: ' ', remainder_mark: "\u{FF65}", total: dataset_uuids.count)
         
         offset = 0
-        limit = 1
+        limit = 20
         
         datasets = []
       
-        while offset < 1 do
+        while offset < dataset_uuids.count do
           
           returned_datasets = dataset.find limit: limit, offset: offset
           
