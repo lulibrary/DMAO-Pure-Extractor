@@ -1,6 +1,7 @@
 require "pure/extractor/version"
 require "pure/extractor/configure_puree"
 require "pure/extractor/commands/pure_extractor"
+require 'ruby-progressbar'
 
 module Pure
   module Extractor
