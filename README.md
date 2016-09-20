@@ -4,7 +4,7 @@ Gem providing a command line utility for extracting information from the Pure CR
 
 ## Installation
 
-Install the gem from rubygems§:
+Install the gem from rubygems:
 
     $ gem install pure-extractor
 
