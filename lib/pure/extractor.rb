@@ -10,7 +10,7 @@ module Pure
       
       collection = Puree::Collection.new resource: type
       
-      collection_count = collection.find(limit: 1000000000, full: false).count
+      collection_count = collection.count
       
       puts collection_count
       
@@ -84,7 +84,7 @@ module Pure
       puts "Writing #{collection_name} to #{file}"
       
       File.open(file, "w") do |f|
-        f.write(results.to_json)
+        f.write(JSON.pretty_generate(results))
       end
       
     end
