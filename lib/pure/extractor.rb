@@ -56,19 +56,19 @@ module Pure
           results.each do |result|
 
             formatted_result = {
-                "system": {
-                    "uuid": result["uuid"],
-                    "modified_at": result["modified"]
+                system: {
+                    uuid: result["uuid"],
+                    modified_at: result["modified"]
                 },
-                "details": {
-                    "name": result["name"],
-                    "description": null,
-                    "url": result["url"][0],
-                    "isni": null,
-                    "type": result["type"]
+                details: {
+                    name: result["name"],
+                    description: null,
+                    url: result["url"][0],
+                    isni: null,
+                    type: result["type"]
                 },
-                "parent": {
-                    "uuid": result["parent"]["uuid"]
+                parent: {
+                    uuid: result["parent"]["uuid"]
                 }
             }
 
