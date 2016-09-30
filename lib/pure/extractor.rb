@@ -10,7 +10,7 @@ module Pure
       
       collection = Puree::Collection.new resource: type
       
-      collection_count = collection.find(limit: 1000000000, full: false).count
+      collection_count = collection.count
       
       puts collection_count
       
@@ -38,9 +38,51 @@ module Pure
         offset += limit
 
       end
+
+      formatted_results = format_results_for_type type, results
       
-      write_results_to_file results, output_file, type.to_s
+      write_results_to_file formatted_results, output_file, type.to_s
       
+    end
+
+    def self.format_results_for_type type, results
+
+      formatted_results = []
+
+      case type
+
+        when :organisation
+
+          results.each do |result|
+
+            formatted_result = {
+                system: {
+                    uuid: result["uuid"],
+                    modified_at: result["modified"]
+                },
+                details: {
+                    name: result["name"],
+                    description: null,
+                    url: result["url"][0],
+                    isni: null,
+                    type: result["type"]
+                },
+                parent: {
+                    uuid: result["parent"]["uuid"]
+                }
+            }
+
+            formatted_results.push formatted_result
+
+          end
+
+        else
+          formatted_results = results
+
+      end
+
+      formatted_results
+
     end
     
     def self.delete_keys_for_type type, item
@@ -84,7 +126,7 @@ module Pure
       puts "Writing #{collection_name} to #{file}"
       
       File.open(file, "w") do |f|
-        f.write(results.to_json)
+        f.write(JSON.pretty_generate(results))
       end
       
     end
