@@ -62,9 +62,9 @@ module Pure
                 },
                 details: {
                     name: result["name"],
-                    description: null,
+                    description: nil,
                     url: result["url"][0],
-                    isni: null,
+                    isni: nil,
                     type: result["type"]
                 },
                 parent: {
