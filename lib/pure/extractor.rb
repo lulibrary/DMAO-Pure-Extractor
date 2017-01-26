@@ -43,7 +43,7 @@ module Pure
 
         formatted_results = format_results_for_type type, returned_collection
 
-        write_results_to_file formatted_results, output_file, type.to_s
+        write_results_to_file formatted_results, output_file
         
         update_progress_bar progress_bar, chunk_size, collection_count
 
@@ -129,7 +129,7 @@ module Pure
       
     end
     
-    def self.write_results_to_file results, file, collection_name
+    def self.write_results_to_file results, file
       
       File.open(file, "w") do |f|
         f.write(JSON.pretty_generate(results))
