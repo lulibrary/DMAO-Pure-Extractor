@@ -28,7 +28,7 @@ module Pure
           
           configure_puree server, username, password
             
-          Pure::Extractor.extract pure_collections[extract], output_file
+          Pure::Extractor.extract pure_collections[extract], chunk_size, output_dir
           
         end
         
