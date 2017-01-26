@@ -6,7 +6,7 @@ require 'ruby-progressbar'
 module Pure
   module Extractor
     
-    def self.extract type, output_file
+    def self.extract type, chunk_size, output_directory
       
       collection = Puree::Collection.new resource: type
       
@@ -17,13 +17,23 @@ module Pure
       progress_bar = ProgressBar.create(format: "%a %e %b\u{15E7}%i %p%% %t", progress_mark: ' ', remainder_mark: "\u{FF65}", total: collection_count)
       
       offset = 0
-      limit = 20
-      
-      results = []
+      file_id = 0
+
+      if chunk_size.nil? || chunk_size.empty?
+        chunk_size = 200
+      end
+
+      chunk_size = chunk_size.to_i
       
       while offset < collection_count do
+
+        file_id += 1
+
+        filename = type.to_s + "_#{file_id.to_s.rjust(6, '0')}"
+
+        output_file = output_directory + "/#{filename}.json"
         
-        returned_collection = collection.find limit: limit, offset: offset
+        returned_collection = collection.find limit: chunk_size, offset: offset
         
         returned_collection.each do |item|
           
@@ -31,17 +41,15 @@ module Pure
         
         end
 
-        results.concat(returned_collection)
-        
-        update_progress_bar progress_bar, limit, collection_count
+        formatted_results = format_results_for_type type, returned_collection
 
-        offset += limit
+        write_results_to_file formatted_results, output_file
+        
+        update_progress_bar progress_bar, chunk_size, collection_count
+
+        offset += chunk_size
 
       end
-
-      formatted_results = format_results_for_type type, results
-      
-      write_results_to_file formatted_results, output_file, type.to_s
       
     end
 
@@ -121,9 +129,7 @@ module Pure
       
     end
     
-    def self.write_results_to_file results, file, collection_name
-      
-      puts "Writing #{collection_name} to #{file}"
+    def self.write_results_to_file results, file
       
       File.open(file, "w") do |f|
         f.write(JSON.pretty_generate(results))

@@ -8,7 +8,7 @@ module Pure
         
         include Pure::Extractor::ConfigurePuree
         
-        valid_extracts = [:organisation, :people, :projects, :publications, :datasets, :all]
+        valid_extracts = [:organisation, :people, :projects, :publications, :datasets]
         
         parameter "EXTRACT", "what to extract from pure, valid options are #{valid_extracts.map{|v| v.to_s}}" do |s|
           
@@ -27,26 +27,8 @@ module Pure
         def execute
           
           configure_puree server, username, password
-        
-          case extract
             
-          when :all
-            
-            valid_extracts.each do |extract|
-              
-              next unless extract != :all
-              
-              filename = output_file + "/" + extract.to_s + ".json"
-              
-              Pure::Extractor.extract pure_collections[extract], filename
-              
-            end
-            
-          else
-            
-            Pure::Extractor.extract pure_collections[extract], output_file
-            
-          end
+          Pure::Extractor.extract pure_collections[extract], chunk_size, output_dir
           
         end
         
