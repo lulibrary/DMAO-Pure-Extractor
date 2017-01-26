@@ -17,13 +17,13 @@ Provides an executable called `pure-extractor` to extract information from Pure 
 With authenticated Pure server
 
 ```
-pure-extractor -s "http://pure.lancs.ac.uk/ws/rest" -u "username", -p "password" -o "/home/users/output-folder/organisation.json" organisation
+pure-extractor -s "http://pure.lancs.ac.uk/ws/rest" -u "username", -p "password" -o "/home/users/output-folder" organisation
 ```
 
 With unauthenticated Pure server
 
 ```
-pure-extractor -s "http://pure.lancs.ac.uk/ws/rest" -o "/home/users/output-folder/organisation.json" organisation
+pure-extractor -s "http://pure.lancs.ac.uk/ws/rest" -o "/home/users/output-folder" organisation
 ```
 
 ### Command Line Arguements
@@ -33,16 +33,17 @@ In order to support both unauthenticated and authenticated pure servers the user
 Generic usage
 
 ```
-pure-extractor -s SERVER_URL -u USERNAME -p PASSWORD -o OUTPUT_FILE EXTRACT_AREA
+pure-extractor -s SERVER_URL -u USERNAME -p PASSWORD -o OUTPUT_DIRECTORY -c CHUNK_SIZE EXTRACT_AREA
 ```
 
 | Option | Description |
 | --- | --- |
 | -h, --help | Display the help text explaining how to use the command line utility |
-| -o, --output-file | File to output the retrieved data to, when specifying "all" as what to extract this is the directory to place the output files in |
-| -s, --server | The URL for the Pure WS Rest service including protocol eg. `http://pure.lancs.ac.uk/ws/rest` |
+| -o, --output-dir | Directory to place the generated files in **required** |
+| -s, --server | The URL for the Pure WS Rest service including protocol eg. `http://pure.lancs.ac.uk/ws/rest` **required** |
 | -u, --username | Username for the Pure WS Rest service, not required if Pure WS requests are unauthenticated |
 | -p, --password | Password for the Pure WS Rest service, not required if Pure WS requests are unauthenticated |
+| -c, --chunk-size | The number of entries to return per chunk and store per file, defaults to 200 if not set |
 
 ## Development
 
