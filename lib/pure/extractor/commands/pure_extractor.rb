@@ -26,7 +26,9 @@ module Pure
         
         def execute
           
-          configure_puree server, username, password
+          puree_config = configure_puree server, username, password
+
+          Pure::Extractor.set_config puree_config
             
           Pure::Extractor.extract pure_collections[extract], chunk_size, output_dir
           
