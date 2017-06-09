@@ -9,3 +9,4 @@
 /tmp/
 *.gem
 .rbenv-gemsets
+.byebug_history
