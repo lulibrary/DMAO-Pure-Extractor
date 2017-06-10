@@ -4,7 +4,7 @@ module Pure
   module Extractor
     module Formatters
 
-      class OrganisationUnit < Resource
+      class Organisation < Resource
 
         def self.format unit
 
