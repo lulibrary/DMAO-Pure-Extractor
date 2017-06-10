@@ -56,25 +56,12 @@ module Pure
 
     def self.format_results_for_type type, results
 
-      formatted_results = []
-
-      case type
-
-        when :organisation
-
-          formatted_results = Pure::Extractor::Formatters::OrganisationUnit.format_array results
-
-        when :person
-
-          formatted_results = Pure::Extractor::Formatters::Person.format_array results
-
-        else
-          byebug
-          raise 'No formatter for specified area'
-
+      begin
+        formatter = Module.const_get('Pure::Extractor::Formatters::' + type.to_s.capitalize)
+        formatter.format_array results
+      rescue NameError
+        raise 'No formatter for specified area'
       end
-
-      formatted_results
 
     end
     
