@@ -2,7 +2,7 @@ require "pure/extractor/version"
 require "pure/extractor/configure_puree"
 require "pure/extractor/commands/pure_extractor"
 require 'ruby-progressbar'
-require 'byebug'
+require 'pure/extractor/formatters'
 
 module Pure
   module Extractor
@@ -62,56 +62,11 @@ module Pure
 
         when :organisation
 
-          results.each do |result|
-
-            if result.parent.nil?
-              parent_uuid = nil
-            else
-              parent_uuid = result.parent.uuid
-            end
-
-            formatted_result = {
-                system: {
-                    uuid: result.uuid,
-                    modified_at: result.modified
-                },
-                details: {
-                    name: result.name,
-                    description: nil,
-                    url: result.urls.first,
-                    isni: nil,
-                    type: result.type
-                },
-                parent: {
-                    uuid: parent_uuid
-                }
-            }
-
-            formatted_results.push formatted_result
-
-          end
+          formatted_results = Pure::Extractor::Formatters::OrganisationUnit.format_array results
 
         when :person
 
-          results.each do |result|
-
-            formatted_result = {
-                system: {
-                    uuid: result.uuid,
-                    modified_at: result.modified
-                },
-                details: {
-                    first_name: result.name.first,
-                    last_name: result.name.last,
-                    email: result.email_addresses.first,
-                    image_url: result.image_urls.first,
-                    orcid: result.orcid
-                }
-            }
-
-            formatted_results.push formatted_result
-
-          end
+          formatted_results = Pure::Extractor::Formatters::Person.format_array results
 
         else
           byebug
