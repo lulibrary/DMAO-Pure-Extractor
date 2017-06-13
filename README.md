@@ -44,6 +44,8 @@ pure-extractor -s SERVER_URL -u USERNAME -p PASSWORD -o OUTPUT_DIRECTORY -c CHUN
 | -u, --username | Username for the Pure WS Rest service, not required if Pure WS requests are unauthenticated |
 | -p, --password | Password for the Pure WS Rest service, not required if Pure WS requests are unauthenticated |
 | -c, --chunk-size | The number of entries to return per chunk and store per file, defaults to 200 if not set |
+| -d, --request-delay | Flag to add random delay between sending API requests so as not to overload server, defaults to **false** |
+| -i, --interactive | Run in interactive mode, used not running in docker, defaults to **false** |
 
 ## Development
 
