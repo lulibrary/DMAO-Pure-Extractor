@@ -12,7 +12,7 @@ module Pure
 
           collection_count = collection.count
 
-          puts "Extracting #{collection_count} records from #{@config[:collection].to_s} collection"
+          puts "Extracting #{collection_count} records from #{@config[:collection]} collection"
 
           offset = 0
           file_id = 0
