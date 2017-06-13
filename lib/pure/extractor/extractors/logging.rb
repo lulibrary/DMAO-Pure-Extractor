@@ -47,7 +47,7 @@ module Pure
 
           end
 
-          puts "Finished extracting #{collection_count} records from collection #{@config[:collection]}"
+          puts "Finished extracting #{collection_count} records from #{@config[:collection]} collection"
 
         end
 

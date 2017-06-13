@@ -12,7 +12,7 @@ module Pure
 
           collection_count = collection.count
 
-          puts "Extracting #{collection_count} records from collection #{@config[:collection]}"
+          puts "Extracting #{collection_count} records from #{@config[:collection]} collection"
 
           progress_bar = ProgressBar.create(format: "%a %e %b\u{15E7}%i %p%% %t", progress_mark: ' ', remainder_mark: "\u{FF65}", total: collection_count)
 
@@ -39,7 +39,7 @@ module Pure
 
           end
 
-          puts "Finished extracting #{collection_count} records from collection #{@config[:collection]}"
+          puts "Finished extracting #{collection_count} records from #{@config[:collection]} collection"
 
         end
 
