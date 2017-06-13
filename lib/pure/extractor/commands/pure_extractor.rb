@@ -26,11 +26,21 @@ module Pure
         
         def execute
           
-          puree_config = configure_puree server, username, password
+          puree_config = configure_puree server, username, password, pure_collections[extract], chunk_size, output_dir, request_delay?
 
-          Pure::Extractor.set_config puree_config
-            
-          Pure::Extractor.extract pure_collections[extract], chunk_size, output_dir
+          if interactive?
+
+            Pure::Extractor::Extractors::InteractiveExtractor.set_config puree_config
+            Pure::Extractor::Extractors::InteractiveExtractor.extract
+
+          else
+
+            Pure::Extractor::Extractors::LoggingExtractor.set_config puree_config
+            Pure::Extractor::Extractors::LoggingExtractor.extract
+
+          end
+
+
           
         end
         
