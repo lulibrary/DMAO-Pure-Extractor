@@ -27,11 +27,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "clamp"
-  spec.add_dependency "puree", "~> 0.19.1"
+  spec.add_dependency "puree", "~> 1.3.0"
   spec.add_dependency "ruby-progressbar"
 
   spec.add_dependency "bundler", "~> 1.12"
   
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest"
+  spec.add_development_dependency "byebug"
 end

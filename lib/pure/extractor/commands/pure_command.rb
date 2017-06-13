@@ -10,7 +10,9 @@ module Pure
         option ["-u", "--username"], "username", "Username to connect to Pure WS"
         option ["-p", "--password"], "password", "Password to connect to Pure WS"
         option ["-c", "--chunk-size"], "chunk-size", "Number of entities to extract per file, defaults to 200"
-        
+        option ["-d", "--request-delay"], :flag, "Add random delay between sending API Requests, default to false", default: false
+        option ["-i", "--interactive"], :flag, "Run in interactive mode, displaying progress bar. This is the default mode", default: false
+
       end
     end
   end

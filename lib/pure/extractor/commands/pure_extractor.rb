@@ -5,9 +5,7 @@ module Pure
   module Extractor
     module Commands
       class PureExtractorCommand < PureCommand
-        
-        include Pure::Extractor::ConfigurePuree
-        
+
         valid_extracts = [:organisation, :people, :projects, :publications, :datasets]
         
         parameter "EXTRACT", "what to extract from pure, valid options are #{valid_extracts.map{|v| v.to_s}}" do |s|
@@ -26,9 +24,29 @@ module Pure
         
         def execute
           
-          configure_puree server, username, password
-            
-          Pure::Extractor.extract pure_collections[extract], chunk_size, output_dir
+          puree_config = {
+              url: server,
+              username: username,
+              password: password,
+              collection: pure_collections[extract],
+              chunk_size: chunk_size,
+              output_directory: output_dir,
+              delay: request_delay?
+          }
+
+          if interactive?
+
+            Pure::Extractor::Extractors::InteractiveExtractor.set_config puree_config
+            Pure::Extractor::Extractors::InteractiveExtractor.extract
+
+          else
+
+            Pure::Extractor::Extractors::LoggingExtractor.set_config puree_config
+            Pure::Extractor::Extractors::LoggingExtractor.extract
+
+          end
+
+
           
         end
         
