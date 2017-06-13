@@ -19,13 +19,7 @@ module Pure
           offset = 0
           file_id = 0
 
-          chunk_size = @config[:chunk_size]
-
-          if chunk_size.nil? || chunk_size.empty?
-            chunk_size = 200
-          end
-
-          chunk_size = chunk_size.to_i
+          chunk_size = get_chunk_size
 
           while offset < collection_count do
 

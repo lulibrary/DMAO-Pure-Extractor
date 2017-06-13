@@ -48,11 +48,23 @@ module Pure
         end
 
         def self.filename_for_id id
-          type.to_s + "_#{id.to_s.rjust(6, '0')}"
+          @config[:collection].to_s + "_#{id.to_s.rjust(6, '0')}"
         end
 
         def self.output_filepath_for_filename filename
           @config[:output_directory] + "/#{filename}.json"
+        end
+
+        def self.get_chunk_size
+
+          chunk_size = @config[:chunk_size]
+
+          if chunk_size.nil? || chunk_size.empty?
+            chunk_size = 200
+          end
+
+          chunk_size.to_i
+
         end
 
       end
